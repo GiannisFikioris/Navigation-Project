@@ -26,7 +26,7 @@ public class GPS {
 			Size = Integer.parseInt(args[0]);
 		}
 		else {
-			Size = 100;
+			Size = 10000;
 		}
 
 		read_client(client);
@@ -47,6 +47,10 @@ public class GPS {
 		for(i=0;i<taxi_id.size();i++){
 			Astars.addElement(new Astar(customer_x,customer_y,customer_id,taxi_x.get(i),taxi_y.get(i),Size,HMap));
 		}
+		
+		System.out.println("Time for parsing input was: " + ((System.nanoTime()-startTime)/1000000000.0) + " seconds");
+		
+		long midTime = System.nanoTime();
 
 		for(i=0;i<taxi_id.size();i++){
 			Astars.get(i).start();
@@ -60,6 +64,8 @@ public class GPS {
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("\nTime for completing " + taxi_id.size() +" Astars was: " + ((System.nanoTime()-midTime)/1000000000.0) + " seconds\n");
 		
 		HMap=null;
 		MinDistance=100000.0;
@@ -87,7 +93,7 @@ public class GPS {
 			System.out.println(count + " out of the " + taxi_id.size() + " taxis didn't find a route" );
 		}
 		else {
-			System.out.println("All taxis found a route");
+			System.out.println("All " + Astars.size()+" taxis found a route");
 		}
 		
 		if(count<Astars.size()){

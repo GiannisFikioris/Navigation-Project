@@ -29,22 +29,23 @@ public class GPS {
 			Size = 10000;
 		}
 
-		read_client(client);
+		read_client(client); // method that saves client's data
 
 		taxi_x = new Vector<Double>();
 		taxi_y = new Vector<Double>();
 		taxi_id = new Vector<Integer>();
 
-		read_taxis(taxis);
+		read_taxis(taxis); // method that saves taxis' data
 		
-		RoadsList HMap = new RoadsList(nodes,customer_x,customer_y);
+		RoadsList HMap = new RoadsList(nodes,customer_x,customer_y); // Data structure in which the Map is read and saved
 
-		customer_x=HMap.getcx();
-		customer_y=HMap.getcy();
+		customer_x = HMap.getcx();
+		customer_y = HMap.getcy();
 		customer_id = HMap.getcid();
 		
 		Astars = new Vector<Astar>();
 		for(i=0;i<taxi_id.size();i++){
+			// Pass into Astars the data needed to run the A* algorithm
 			Astars.addElement(new Astar(customer_x,customer_y,customer_id,taxi_x.get(i),taxi_y.get(i),Size,HMap));
 		}
 		
@@ -53,7 +54,7 @@ public class GPS {
 		long midTime = System.nanoTime();
 
 		for(i=0;i<taxi_id.size();i++){
-			Astars.get(i).start();
+			Astars.get(i).start(); // Run A*
 		}
 		
 		for(i=0;i<taxi_id.size();i++){
